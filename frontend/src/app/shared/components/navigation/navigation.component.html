@@ -1,0 +1,6 @@
+<nav class="navbar">
+  <h3 class="navbar__title">Task Manager</h3>
+  @if(authService.isAuthenticated()){
+  <app-button [isSecondary]="true" (click)="logout()">Logout</app-button>
+  }
+</nav>

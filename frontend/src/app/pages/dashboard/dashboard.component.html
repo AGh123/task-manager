@@ -1,0 +1,32 @@
+<div class="container">
+  @for (employee of employees(); track employee.id){
+  <div>
+    <h3>{{ employee.fullName }}</h3>
+    <p>Email: {{ employee.email }}</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Task Title</th>
+          <th>Description</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (task of employee.tasks; track task.id){
+        <tr>
+          <td>{{ task.title }}</td>
+          <td>{{ task.description }}</td>
+          <td>
+            <span [style.color]="task.isCompleted ? 'green' : 'red'">
+              {{ task.isCompleted ? "Completed" : "Pending" }}
+            </span>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+    <hr />
+  </div>
+  }
+</div>

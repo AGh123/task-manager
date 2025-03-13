@@ -8,8 +8,8 @@ import { Component, input } from '@angular/core';
   styleUrl: './button.component.scss',
 })
 export class ButtonComponent {
-  isDisabled = input(false);
-  isBlock = input(false);
-  isSecondary = input(false);
-  width = input('auto');
+  public isDisabled = input(false);
+  public isBlock = input(false);
+  public isSecondary = input(false);
+  public width = input('auto');
 }

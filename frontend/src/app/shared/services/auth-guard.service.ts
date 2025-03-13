@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthGuardService {
-  router = inject(Router);
+  private router = inject(Router);
 
   canActivate(): boolean {
     if (!localStorage.getItem('token')) {

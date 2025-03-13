@@ -27,7 +27,7 @@ export class LoginComponent {
   private router = inject(Router);
   private fb = inject(FormBuilder);
   public loginForm: FormGroup;
-  error = signal<string>('');
+  public error = signal<string>('');
 
   constructor() {
     this.loginForm = this.fb.group({
@@ -45,12 +45,10 @@ export class LoginComponent {
       const { email, password } = this.loginForm.value;
       this.authService.login(email, password).subscribe({
         next: (token) => {
-          debugger;
-          localStorage.setItem('token', token);
+          localStorage.setItem('token', token.token);
           this.router.navigate(['/dashboard']);
         },
         error: (err) => {
-          debugger;
           this.error.set(err);
         },
       });
