@@ -9,5 +9,6 @@ namespace task_manager.Services
         Task<Employee> CreateEmployeeAsync(Employee employee);
         Task<Employee?> UpdateEmployeeAsync(int id, Employee updatedEmployee);
         Task<bool> DeleteEmployeeAsync(int id);
+        Task<bool> EmployeeExistsAsync(string email);
     }
 }

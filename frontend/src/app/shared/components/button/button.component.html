@@ -1,0 +1,12 @@
+<button
+  class="button"
+  [ngClass]="{
+    'button--secondary': isSecondary(),
+    'button--disabled': isDisabled(),
+    'button--block': isBlock()
+  }"
+  [disabled]="isDisabled()"
+  [style.width]="isBlock() ? '100%' : width()"
+>
+  <ng-content />
+</button>

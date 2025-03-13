@@ -53,5 +53,10 @@ namespace task_manager.Services
             await _context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<bool> EmployeeExistsAsync(string email)
+        {
+            return await _context.Employees.CountAsync(e => e.Email == email) > 0;
+        }
     }
 }

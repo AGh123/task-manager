@@ -1,0 +1,19 @@
+.error-msg {
+  text-align: center;
+  color: var(--color-alert);
+  margin-bottom: 1rem;
+}
+
+.form {
+  max-width: 30rem;
+  margin: 5rem auto;
+  padding: 2rem;
+  background-color: var(--white-muted);
+  border-radius: 0.5rem;
+  box-shadow: 0 0.25rem 0.5rem var(--overlay-light);
+
+  &__field {
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+}

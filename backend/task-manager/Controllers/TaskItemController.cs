@@ -17,7 +17,6 @@ namespace task_manager.Controllers
             _taskService = taskService;
         }
 
-        // 🔹 Employees see their own tasks, Managers see all
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> GetAllTasks()
@@ -35,7 +34,6 @@ namespace task_manager.Controllers
             }
         }
 
-        // 🔹 Get task by ID (Only the assigned employee or manager can access it)
         [HttpGet("{id}")]
         [Authorize]
         public async Task<IActionResult> GetTaskById(int id)
@@ -53,7 +51,6 @@ namespace task_manager.Controllers
             return Ok(task);
         }
 
-        // 🔹 Create a new task (Only Managers can create tasks)
         [HttpPost]
         [Authorize(Roles = "Manager")]
         public async Task<IActionResult> CreateTask([FromBody] TaskItem task)
@@ -62,7 +59,6 @@ namespace task_manager.Controllers
             return CreatedAtAction(nameof(GetTaskById), new { id = createdTask.Id }, createdTask);
         }
 
-        // 🔹 Update a task (Only Managers can update tasks)
         [HttpPut("{id}")]
         [Authorize(Roles = "Manager")]
         public async Task<IActionResult> UpdateTask(int id, [FromBody] TaskItem updatedTask)
@@ -74,7 +70,6 @@ namespace task_manager.Controllers
             return Ok(result);
         }
 
-        // 🔹 Employees can mark their assigned tasks as completed
         [HttpPut("{id}/complete")]
         [Authorize]
         public async Task<IActionResult> MarkTaskAsCompleted(int id)
@@ -94,7 +89,6 @@ namespace task_manager.Controllers
             return Ok(new { message = "Task marked as completed" });
         }
 
-        // 🔹 Delete a task (Only Managers can delete tasks)
         [HttpDelete("{id}")]
         [Authorize(Roles = "Manager")]
         public async Task<IActionResult> DeleteTask(int id)

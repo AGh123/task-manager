@@ -20,25 +20,6 @@ namespace task_manager.Controllers
             _authService = authService;
         }
 
-        [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterModel model)
-        {
-            if (await _context.Employees.AnyAsync(e => e.Email == model.Email))
-                return BadRequest(new { message = "Email already exists" });
-
-            var employee = new Employee
-            {
-                FullName = model.FullName,
-                Email = model.Email,
-                PasswordHash = PasswordHasher.Hash(model.Password),
-                IsManager = false
-            };
-
-            _context.Employees.Add(employee);
-            await _context.SaveChangesAsync();
-            return Ok(new { message = "User registered successfully" });
-        }
-
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
@@ -49,5 +30,6 @@ namespace task_manager.Controllers
             var token = _authService.GenerateJwtToken(user);
             return Ok(new { token });
         }
+
     }
 }

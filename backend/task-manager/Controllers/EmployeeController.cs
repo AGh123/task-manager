@@ -18,7 +18,6 @@ namespace task_manager.Controllers
             _employeeService = employeeService;
         }
 
-        // 🔹 Only Managers can get all employees
         [HttpGet]
         [Authorize(Roles = "Manager")]
         public async Task<IActionResult> GetAllEmployees()
@@ -26,7 +25,6 @@ namespace task_manager.Controllers
             return Ok(await _employeeService.GetAllEmployeesAsync());
         }
 
-        // 🔹 Employees can only get their own data
         [HttpGet("{id}")]
         [Authorize]
         public async Task<IActionResult> GetEmployeeById(int id)
@@ -43,23 +41,31 @@ namespace task_manager.Controllers
             return Ok(employee);
         }
 
-        // 🔹 Only Managers can create employees
-        [HttpPost]
         [Authorize(Roles = "Manager")]
+        [HttpPost("create")]
         public async Task<IActionResult> CreateEmployee([FromBody] Employee employee)
         {
-            // 🔹 Hash the password before saving
-            employee.PasswordHash = PasswordHasher.Hash(employee.PasswordHash);
-            var createdEmployee = await _employeeService.CreateEmployeeAsync(employee);
+            if (await _employeeService.EmployeeExistsAsync(employee.Email))
+                return BadRequest("Email already exists.");
+
+            var newEmployee = new Employee
+            {
+                FullName = employee.FullName,
+                Email = employee.Email,
+                PasswordHash = PasswordHasher.Hash(employee.PasswordHash),
+                IsManager = false,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            var createdEmployee = await _employeeService.CreateEmployeeAsync(newEmployee);
             return CreatedAtAction(nameof(GetEmployeeById), new { id = createdEmployee.Id }, createdEmployee);
         }
 
-        // 🔹 Only Managers can update employees
+
         [HttpPut("{id}")]
         [Authorize(Roles = "Manager")]
         public async Task<IActionResult> UpdateEmployee(int id, [FromBody] Employee updatedEmployee)
         {
-            // 🔹 Hash the password before updating
             updatedEmployee.PasswordHash = PasswordHasher.Hash(updatedEmployee.PasswordHash);
 
             var result = await _employeeService.UpdateEmployeeAsync(id, updatedEmployee);
@@ -68,7 +74,6 @@ namespace task_manager.Controllers
             return Ok(result);
         }
 
-        // 🔹 Only Managers can delete employees
         [HttpDelete("{id}")]
         [Authorize(Roles = "Manager")]
         public async Task<IActionResult> DeleteEmployee(int id)

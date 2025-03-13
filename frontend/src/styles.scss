@@ -1,1 +1,37 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --primary: #000000;
+  --primary-light: #222222;
+  --primary-lighter: #333333;
+
+  --secondary: #408ee0;
+  --secondary-dark: #1b75be;
+  --secondary-darker: #0051a2;
+
+  --white: #ffffff;
+  --white-muted: #f9f9f9;
+
+  --gray-light: #dedede;
+  --gray: #aaaaaa;
+  --gray-dark: #666666;
+
+  --overlay-light: rgba(0, 0, 0, 0.1);
+  --overlay-dark: rgba(0, 0, 0, 0.5);
+
+  --color-alert: #ff0000;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 1.2rem;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
