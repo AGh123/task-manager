@@ -6,3 +6,10 @@ export interface EmployeeInterface {
   email: string;
   tasks: TaskItemInterface[];
 }
+
+export interface CreateEmployeeInterface {
+  fullName: string;
+  email: string;
+  passwordHash: string;
+  isManager: boolean;
+}

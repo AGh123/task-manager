@@ -63,7 +63,6 @@ namespace task_manager.Controllers
 
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> UpdateEmployee(int id, [FromBody] Employee updatedEmployee)
         {
             updatedEmployee.PasswordHash = PasswordHasher.Hash(updatedEmployee.PasswordHash);

@@ -1,0 +1,46 @@
+<div class="container">
+  @if(sidenavService.EditEmployee()) {
+  <h1>Edit Account</h1>
+  } @else {
+  <h1>Add Employee</h1>
+  }
+  <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" class="form">
+    <mat-form-field class="form__field">
+      <mat-label>Full Name</mat-label>
+      <input matInput type="fullName" formControlName="fullName" />
+      @if (this.employeeForm.get('fullName')?.hasError('required')) {
+      <mat-error>Required</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field class="form__field">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email" />
+      @if (this.employeeForm.get('email')?.hasError('required')) {
+      <mat-error>Required</mat-error>
+      } @else if(this.employeeForm.get('email')?.hasError('email')) {
+      <mat-error>Enter a correct email</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field class="form__field">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password" />
+      @if (this.employeeForm.get('password')?.hasError('required')) {
+      <mat-error>Required</mat-error>
+      } @else if(this.employeeForm.get('password')?.hasError('minlength')) {
+      <mat-error>Minimum 6 characters</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field class="form__field">
+      <mat-label>Role</mat-label>
+      <mat-select formControlName="isManager">
+        <mat-option [value]="false">Employee</mat-option>
+        <mat-option [value]="true">Manager</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <app-button [isDisabled]="isDisabled()" [isBlock]="true">Submit</app-button>
+  </form>
+</div>

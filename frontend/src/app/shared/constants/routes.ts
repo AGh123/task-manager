@@ -9,7 +9,7 @@ export const API_ROUTES = {
   EMPLOYEES: {
     GET_ALL: `${BASE_URL}/employees`,
     GET_BY_ID: (id: number) => `${BASE_URL}/employees/${id}`,
-    CREATE: `${BASE_URL}/employees`,
+    CREATE: `${BASE_URL}/employees/create`,
     UPDATE: (id: number) => `${BASE_URL}/employees/${id}`,
     DELETE: (id: number) => `${BASE_URL}/employees/${id}`,
   },

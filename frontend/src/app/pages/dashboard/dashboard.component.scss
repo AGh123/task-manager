@@ -1,44 +1,71 @@
-.container {
+.employee-dashboard {
+  max-width: 60rem;
+  margin: 2rem auto;
   padding: 2rem;
+  background: var(--white-muted);
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1rem var(--overlay-light);
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 1rem;
-  font-size: 1rem;
-  text-align: left;
+.employee-card {
+  background: var(--white);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.3rem 0.8rem var(--overlay-light);
+  transition: box-shadow 0.3s ease-in-out;
+
+  &:hover {
+    box-shadow: 0 0.5rem 1.2rem var(--overlay-dark);
+  }
 }
 
-th,
-td {
-  padding: 0.75rem;
-  border: 1px solid #ddd;
+.employee-name {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
-th {
-  background-color: #007bff;
-  color: white;
+.employee-card__name {
+  font-size: 1.8rem;
   font-weight: bold;
-}
-
-tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-tr:hover {
-  background-color: #f1f1f1;
-}
-
-h3 {
-  color: #333;
+  color: var(--primary);
   margin-bottom: 0.5rem;
 }
 
-p {
-  color: #666;
+.employee-card__email {
+  font-size: 1.4rem;
+  color: var(--gray-dark);
+  margin-bottom: 1rem;
 }
 
-span {
+.employee-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--white);
+}
+
+.employee-table__header {
+  background: var(--primary-light);
+  color: var(--black);
+  font-size: 1.4rem;
+}
+
+.employee-table__cell {
+  padding: 1rem;
+  font-size: 1.3rem;
+  border-bottom: 0.1rem solid var(--gray-light);
+}
+
+.employee-table__status {
   font-weight: bold;
+  text-transform: uppercase;
+}
+
+.employee-table__status--completed {
+  color: green;
+}
+
+.employee-table__status--pending {
+  color: var(--color-alert);
 }

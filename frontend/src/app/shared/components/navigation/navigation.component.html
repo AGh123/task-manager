@@ -1,6 +1,20 @@
 <nav class="navbar">
   <h3 class="navbar__title">Task Manager</h3>
   @if(authService.isAuthenticated()){
-  <app-button [isSecondary]="true" (click)="logout()">Logout</app-button>
+  <button mat-button [matMenuTriggerFor]="menu">
+    <app-icon>menu</app-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="OpenEditAccountSidenav()">
+      Edit Account
+    </button>
+    @if(authService.isManager()) {
+    <button mat-menu-item (click)="OpenAddEmployeeSidenav()">
+      Add Employee
+    </button>
+    <button mat-menu-item (click)="OpenAddTaskSidenav()">Add Task</button>
+    }
+    <button mat-menu-item (click)="logout()">Logout</button>
+  </mat-menu>
   }
 </nav>

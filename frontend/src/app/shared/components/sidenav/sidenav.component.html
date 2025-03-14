@@ -1,0 +1,29 @@
+<mat-sidenav-container>
+  @if(sidenavService.AddEmployee() || sidenavService.EditEmployee()) {
+  <mat-sidenav
+    mode="over"
+    position="end"
+    [opened]="sidenavService.AddEmployee() || sidenavService.EditEmployee()"
+    [disableClose]="true"
+  >
+    <div class="close">
+      <app-icon tooltip="Close" (click)="close()">close</app-icon>
+      <app-add-edit-employee></app-add-edit-employee>
+    </div>
+  </mat-sidenav>
+  } @if(sidenavService.AddEditTask()) {
+  <mat-sidenav
+    mode="over"
+    position="end"
+    [opened]="sidenavService.AddEditTask()"
+    [disableClose]="true"
+  >
+    <div class="close">
+      <app-icon tooltip="Close" (click)="close()">close</app-icon>
+    </div>
+  </mat-sidenav>
+  }
+  <mat-sidenav-content>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

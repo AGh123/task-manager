@@ -1,15 +1,31 @@
 import { Component, inject } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { ButtonComponent } from '../button/button.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+import { IconComponent } from '../icon/icon.component';
+import { SidenavService } from '../../services/sidenav.service';
 
 @Component({
   selector: 'app-navigation',
-  imports: [ButtonComponent],
+  imports: [MatButtonModule, MatMenuModule, IconComponent],
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.scss',
 })
 export class NavigationComponent {
-  authService = inject(AuthService);
+  public authService = inject(AuthService);
+  sidenavService = inject(SidenavService);
+
+  OpenAddEmployeeSidenav() {
+    this.sidenavService.AddEmployee.set(true);
+  }
+
+  OpenEditAccountSidenav() {
+    this.sidenavService.EditEmployee.set(true);
+  }
+
+  OpenAddTaskSidenav() {
+    this.sidenavService.AddEditTask.set(true);
+  }
 
   logout() {
     this.authService.logout();
