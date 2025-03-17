@@ -75,7 +75,7 @@ namespace task_manager.Controllers
         public async Task<IActionResult> MarkTaskAsCompleted(int id)
         {
             var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
-            var task = await _taskService.GetTaskByIdAsync(id);
+            var task = await _taskService.GetTaskModelByIdAsync(id);
 
             if (task == null)
                 return NotFound(new { message = "Task not found" });

@@ -1,9 +1,9 @@
 <mat-sidenav-container>
-  @if(sidenavService.AddEmployee() || sidenavService.EditEmployee()) {
+  @if(sidenavService.addEmployee() || sidenavService.editEmployee()) {
   <mat-sidenav
     mode="over"
     position="end"
-    [opened]="sidenavService.AddEmployee() || sidenavService.EditEmployee()"
+    [opened]="sidenavService.addEmployee() || sidenavService.editEmployee()"
     [disableClose]="true"
   >
     <div class="close">
@@ -11,15 +11,16 @@
       <app-add-edit-employee></app-add-edit-employee>
     </div>
   </mat-sidenav>
-  } @if(sidenavService.AddEditTask()) {
+  } @if(sidenavService.addTask() || sidenavService.editTask()) {
   <mat-sidenav
     mode="over"
     position="end"
-    [opened]="sidenavService.AddEditTask()"
+    [opened]="sidenavService.addTask() || sidenavService.editTask()"
     [disableClose]="true"
   >
     <div class="close">
       <app-icon tooltip="Close" (click)="close()">close</app-icon>
+      <app-add-edit-task></app-add-edit-task>
     </div>
   </mat-sidenav>
   }

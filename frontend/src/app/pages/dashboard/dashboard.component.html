@@ -3,11 +3,20 @@
   <div class="employee-card">
     <div class="employee-name">
       <h3 class="employee-card__name">{{ employee.fullName }}</h3>
-      @if(showDelete(employee.id)){
-      <app-icon (click)="deleteEmployee(employee.id)" tooltip="Delete User"
-        >delete</app-icon
-      >
-      }
+      <div class="manager-actions">
+        @if(showDelete(employee.id)){
+        <app-icon (click)="deleteEmployee(employee.id)" tooltip="Delete User"
+          >delete</app-icon
+        >
+        } @if(authService.isManager()){
+
+        <app-button
+          [isSecondary]="true"
+          (click)="assignTaskToEmployee(employee)"
+          >Assign Task</app-button
+        >
+        }
+      </div>
     </div>
     <p class="employee-card__email">Email: {{ employee.email }}</p>
 
@@ -17,11 +26,33 @@
       class="employee-table mat-elevation-z8"
     >
       <ng-container matColumnDef="title">
-        <th mat-header-cell *matHeaderCellDef class="employee-table__header">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          class="employee-table__header title"
+        >
           Task Title
         </th>
-        <td mat-cell *matCellDef="let task" class="employee-table__cell">
-          {{ task.title }}
+        <td mat-cell *matCellDef="let task" class="employee-table__cell title">
+          <div class="title-container">
+            <span>{{ task.title }}</span>
+            <div class="icons-container">
+              @if(authService.isManager()){
+              <app-icon (click)="editTask(employee, task)" tooltip="Edit task"
+                >edit</app-icon
+              >
+              <app-icon (click)="deleteTask(task.id)" tooltip="Delete task"
+                >delete</app-icon
+              >
+              } @if(isTaskOwnerSameAsUser(employee.id)){
+              <app-icon
+                (click)="markAsDone(task.id)"
+                tooltip="Mark task as done"
+                >done</app-icon
+              >
+              }
+            </div>
+          </div>
         </td>
       </ng-container>
 

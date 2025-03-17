@@ -1,5 +1,5 @@
 <div class="container">
-  @if(sidenavService.EditEmployee()) {
+  @if(sidenavService.editEmployee()) {
   <h1>Edit Account</h1>
   } @else {
   <h1>Add Employee</h1>
@@ -7,7 +7,7 @@
   <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" class="form">
     <mat-form-field class="form__field">
       <mat-label>Full Name</mat-label>
-      <input matInput type="fullName" formControlName="fullName" />
+      <input matInput type="text" formControlName="fullName" />
       @if (this.employeeForm.get('fullName')?.hasError('required')) {
       <mat-error>Required</mat-error>
       }

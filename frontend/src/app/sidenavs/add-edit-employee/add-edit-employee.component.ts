@@ -40,7 +40,7 @@ export class AddEditEmployeeComponent implements OnInit {
   private authService = inject(AuthService);
 
   ngOnInit(): void {
-    if (this.sidenavService.EditEmployee()) {
+    if (this.sidenavService.editEmployee()) {
       this.employee.set(
         this.employeesService
           .employees()
@@ -58,10 +58,10 @@ export class AddEditEmployeeComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]],
       isManager: [
         {
-          value: this.sidenavService.EditEmployee()
+          value: this.sidenavService.editEmployee()
             ? this.authService.isManager()
             : false,
-          disabled: this.sidenavService.EditEmployee(),
+          disabled: this.sidenavService.editEmployee(),
         },
         Validators.required,
       ],
@@ -80,7 +80,7 @@ export class AddEditEmployeeComponent implements OnInit {
         passwordHash: this.employeeForm.get('password')?.value,
         isManager: this.employeeForm.get('isManager')?.value,
       };
-      if (this.sidenavService.EditEmployee()) {
+      if (this.sidenavService.editEmployee()) {
         this.employeesService
           .editEmployee(employee, this.employee()!.id)
           .subscribe({

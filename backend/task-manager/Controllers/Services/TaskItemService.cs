@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using task_manager.Data;
+using task_manager.DTOs;
 using task_manager.Models;
 
 namespace task_manager.Services
@@ -13,20 +14,60 @@ namespace task_manager.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<TaskItem>> GetAllTasksAsync()
+        public async Task<IEnumerable<TaskItemDto>> GetAllTasksAsync()
         {
-            return await _context.Tasks.ToListAsync();
+            var tasks = await _context.Tasks.ToListAsync();
+            return tasks.Select(t => new TaskItemDto
+            {
+                Id = t.Id,
+                Title = t.Title,
+                Description = t.Description,
+                IsCompleted = t.IsCompleted,
+                AssignedToEmployeeId = t.AssignedToEmployeeId
+            });
         }
 
-        public async Task<IEnumerable<TaskItem>> GetTasksByEmployeeIdAsync(int employeeId)
+        public async Task<IEnumerable<TaskItemDto>> GetTasksByEmployeeIdAsync(int employeeId)
         {
-            return await _context.Tasks.Where(t => t.AssignedToEmployeeId == employeeId).ToListAsync();
+            var tasks = await _context.Tasks
+                .Where(t => t.AssignedToEmployeeId == employeeId)
+                .ToListAsync();
+
+            return tasks.Select(t => new TaskItemDto
+            {
+                Id = t.Id,
+                Title = t.Title,
+                Description = t.Description,
+                IsCompleted = t.IsCompleted,
+                AssignedToEmployeeId = t.AssignedToEmployeeId
+            });
         }
 
-        public async Task<TaskItem?> GetTaskByIdAsync(int id)
+        public async Task<TaskItemDto?> GetTaskByIdAsync(int id)
         {
-            return await _context.Tasks.FindAsync(id);
+            var task = await _context.Tasks.FindAsync(id);
+
+            if (task == null) return null;
+
+            return new TaskItemDto
+            {
+                Id = task.Id,
+                Title = task.Title,
+                Description = task.Description,
+                IsCompleted = task.IsCompleted,
+                AssignedToEmployeeId = task.AssignedToEmployeeId
+            };
         }
+
+        public async Task<TaskItem?> GetTaskModelByIdAsync(int id)
+        {
+            var task = await _context.Tasks.FindAsync(id);
+
+            if (task == null) return null;
+
+            return task;
+        }
+
 
         public async Task<TaskItem> CreateTaskAsync(TaskItem task)
         {

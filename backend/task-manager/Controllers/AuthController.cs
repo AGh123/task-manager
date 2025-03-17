@@ -21,7 +21,7 @@ namespace task_manager.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginModel model)
+        public async Task<IActionResult> Login([FromBody] Login model)
         {
             var user = await _context.Employees.SingleOrDefaultAsync(e => e.Email == model.Email);
             if (user == null || !PasswordHasher.Verify(model.Password, user.PasswordHash))

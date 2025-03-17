@@ -1,0 +1,22 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full viewport height */
+}
+
+app-navigation {
+  height: 4rem; /* Adjust based on navbar height */
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--primary);
+  z-index: 1000;
+}
+
+.content {
+  flex-grow: 1; /* Takes remaining space */
+  margin-top: 4rem; /* Same as navbar height */
+  overflow: auto; /* Scrollable content */
+  padding: 1rem;
+}

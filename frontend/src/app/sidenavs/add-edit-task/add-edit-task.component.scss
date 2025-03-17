@@ -1,0 +1,13 @@
+.container {
+  padding: 3rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: calc(100vh - 14rem);
+  padding-top: 1rem;
+}

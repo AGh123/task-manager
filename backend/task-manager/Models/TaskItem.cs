@@ -13,16 +13,17 @@ namespace task_manager.Models
         [MaxLength(200)]
         public string Title { get; set; }
 
-        [Column(TypeName = "CLOB")] 
-        public string Description { get; set; }
+        [Column(TypeName = "CLOB")]
+        public string? Description { get; set; }
+
+        [Required]
+        [ForeignKey("AssignedToEmployee")]
+        public int AssignedToEmployeeId { get; set; }
 
         [Column(TypeName = "NUMBER(1)")]
         public bool IsCompleted { get; set; } = false;
 
-        [ForeignKey("AssignedToEmployee")]
-        public int AssignedToEmployeeId { get; set; }
-
-        public Employee AssignedToEmployee { get; set; }
+        public Employee? AssignedToEmployee { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime CreatedAt { get; set; }

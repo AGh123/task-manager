@@ -4,13 +4,15 @@ import { Injectable, signal } from '@angular/core';
   providedIn: 'root',
 })
 export class SidenavService {
-  AddEmployee = signal(false);
-  EditEmployee = signal(false);
-  AddEditTask = signal(false);
+  addEmployee = signal(false);
+  editEmployee = signal(false);
+  addTask = signal(false);
+  editTask = signal(false);
 
   close() {
-    this.AddEmployee.set(false);
-    this.EditEmployee = signal(false);
-    this.AddEditTask.set(false);
+    this.addEmployee.set(false);
+    this.editEmployee = signal(false);
+    this.addTask.set(false);
+    this.editTask.set(false);
   }
 }

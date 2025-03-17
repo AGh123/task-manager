@@ -45,19 +45,20 @@ namespace task_manager.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> CreateEmployee([FromBody] Employee employee)
         {
-            if (await _employeeService.EmployeeExistsAsync(employee.Email))
-                return BadRequest("Email already exists.");
-
             var newEmployee = new Employee
             {
                 FullName = employee.FullName,
                 Email = employee.Email,
                 PasswordHash = PasswordHasher.Hash(employee.PasswordHash),
-                IsManager = false,
+                IsManager = employee.IsManager,
                 CreatedAt = DateTime.UtcNow
             };
 
             var createdEmployee = await _employeeService.CreateEmployeeAsync(newEmployee);
+
+            if (employee == null)
+                return BadRequest(new { message = "Email already exists." });
+
             return CreatedAtAction(nameof(GetEmployeeById), new { id = createdEmployee.Id }, createdEmployee);
         }
 

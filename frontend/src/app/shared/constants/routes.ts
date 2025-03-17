@@ -19,6 +19,6 @@ export const API_ROUTES = {
     CREATE: `${BASE_URL}/tasks`,
     UPDATE: (id: number) => `${BASE_URL}/tasks/${id}`,
     DELETE: (id: number) => `${BASE_URL}/tasks/${id}`,
-    MARK_DONE: (id: number) => `${BASE_URL}/tasks/${id}/done`,
+    COMPLETED: (id: number) => `${BASE_URL}/tasks/${id}/complete`,
   },
 };

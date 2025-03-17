@@ -16,15 +16,11 @@ export class NavigationComponent {
   sidenavService = inject(SidenavService);
 
   OpenAddEmployeeSidenav() {
-    this.sidenavService.AddEmployee.set(true);
+    this.sidenavService.addEmployee.set(true);
   }
 
   OpenEditAccountSidenav() {
-    this.sidenavService.EditEmployee.set(true);
-  }
-
-  OpenAddTaskSidenav() {
-    this.sidenavService.AddEditTask.set(true);
+    this.sidenavService.editEmployee.set(true);
   }
 
   logout() {

@@ -6,10 +6,14 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../shared/services/auth.service';
 import { IconComponent } from '../../shared/components/icon/icon.component';
 import { Router } from '@angular/router';
+import { ButtonComponent } from '../../shared/components/button/button.component';
+import { TasksService } from '../../shared/services/tasks.service';
+import { SidenavService } from '../../shared/services/sidenav.service';
+import { TaskItemInterface } from '../../shared/models/task-item.interface';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [MatTableModule, CommonModule, IconComponent],
+  imports: [MatTableModule, CommonModule, IconComponent, ButtonComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
@@ -17,8 +21,10 @@ export class DashboardComponent implements OnInit {
   private employeesService = inject(EmployeesService);
   public employees = signal<EmployeeInterface[]>([]);
   public displayedColumns = signal(['title', 'description', 'status']);
-  private authService = inject(AuthService);
+  public authService = inject(AuthService);
   private router = inject(Router);
+  private taskService = inject(TasksService);
+  private sidenavService = inject(SidenavService);
 
   ngOnInit(): void {
     if (this.authService.isManager()) {
@@ -44,6 +50,47 @@ export class DashboardComponent implements OnInit {
 
   showDelete(id: number) {
     return this.authService.isManager() && this.authService.getUserId() != id;
+  }
+
+  assignTaskToEmployee(employee: EmployeeInterface) {
+    this.taskService.employee.set(employee);
+    this.sidenavService.addTask.set(true);
+  }
+
+  isTaskOwnerSameAsUser(id: number) {
+    return this.authService.getUserId() == id;
+  }
+
+  markAsDone(id: number) {
+    this.taskService.completeTask(id).subscribe({
+      next: (res) => {
+        this.router
+          .navigateByUrl('/', { skipLocationChange: true })
+          .then(() => {
+            this.router.navigate(['/dashboard']);
+          });
+      },
+      error: (err) => {},
+    });
+  }
+
+  deleteTask(id: number) {
+    this.taskService.deleteTask(id).subscribe({
+      next: (res) => {
+        this.router
+          .navigateByUrl('/', { skipLocationChange: true })
+          .then(() => {
+            this.router.navigate(['/dashboard']);
+          });
+      },
+      error: (err) => {},
+    });
+  }
+
+  editTask(employee: EmployeeInterface, task: TaskItemInterface) {
+    this.taskService.employee.set(employee);
+    this.taskService.task.set(task);
+    this.sidenavService.editTask.set(true);
   }
 
   deleteEmployee(id: number) {
